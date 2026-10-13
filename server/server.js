@@ -5,7 +5,6 @@ const Razorpay = require("razorpay");
 const crypto = require("crypto");
 
 const app = express();
-
 app.use(express.json({ limit: "20kb" }));
 
 const PORT = process.env.PORT || 3000;
@@ -15,10 +14,7 @@ const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN;
 
 const razorpay =
 KEY_ID && KEY_SECRET
-? new Razorpay({
-key_id: KEY_ID,
-key_secret: KEY_SECRET
-})
+? new Razorpay({ key_id: KEY_ID, key_secret: KEY_SECRET })
 : null;
 
 const allowedSpots = new Set([
@@ -26,7 +22,7 @@ const allowedSpots = new Set([
 "06", "07", "08", "09"
 ]);
 
-// CORS configuration for PeerNexa
+// CORS configuration
 const allowedOrigins = new Set([
 "https://saitejapatel301-art.github.io",
 FRONTEND_ORIGIN
@@ -49,12 +45,6 @@ return res.sendStatus(204);
 
 next();
 });
-if (req.method === "OPTIONS") {
-return res.sendStatus(204);
-}
-
-next();
-});
 
 // Health check
 app.get("/health", (_req, res) => {
@@ -64,7 +54,7 @@ service: "PeerNexa payment server"
 });
 });
 
-// Create a Razorpay order for a ₹99 spot
+// Create a ₹99 spot payment order
 app.post("/api/create-order", async (req, res) => {
 try {
 if (!razorpay) {
@@ -120,11 +110,12 @@ return res.status(500).json({
 }
 });
 
-// Verify Razorpay payment signature
+// Verify payment signature
 app.post("/api/verify-payment", (req, res) => {
 try {
 if (!KEY_SECRET) {
 return res.status(503).json({
+verified: false,
 message: "Payment server keys are not configured."
 });
 }
@@ -139,11 +130,12 @@ const {
 if (
   typeof razorpay_order_id !== "string" ||
   typeof razorpay_payment_id !== "string" ||
-  typeof razorpay_signature !== "string"
+  typeof razorpay_signature !== "string" ||
+  !/^[a-f0-9]{64}$/i.test(razorpay_signature)
 ) {
   return res.status(400).json({
     verified: false,
-    message: "Missing payment verification details."
+    message: "Missing or invalid payment details."
   });
 }
 
@@ -152,14 +144,13 @@ const expectedSignature = crypto
   .update(razorpay_order_id + "|" + razorpay_payment_id)
   .digest("hex");
 
-const signaturesMatch =
-  expectedSignature.length === razorpay_signature.length &&
-  crypto.timingSafeEqual(
-    Buffer.from(expectedSignature, "hex"),
-    Buffer.from(razorpay_signature, "hex")
-  );
+const signatureBuffer = Buffer.from(razorpay_signature, "hex");
+const expectedBuffer = Buffer.from(expectedSignature, "hex");
 
-if (!signaturesMatch) {
+if (
+  signatureBuffer.length !== expectedBuffer.length ||
+  !crypto.timingSafeEqual(signatureBuffer, expectedBuffer)
+) {
   return res.status(400).json({
     verified: false,
     message: "Payment signature verification failed."
@@ -185,7 +176,7 @@ return res.status(500).json({
 }
 });
 
-// Start the server (required for Render)
+// Start server
 app.listen(PORT, () => {
 console.log("PeerNexa server listening on port " + PORT);
 });
