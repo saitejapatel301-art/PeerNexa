@@ -26,15 +26,29 @@ const allowedSpots = new Set([
 "06", "07", "08", "09"
 ]);
 
-// CORS configuration for the PeerNexa website
+// CORS configuration for PeerNexa
+const allowedOrigins = new Set([
+"https://saitejapatel301-art.github.io",
+FRONTEND_ORIGIN
+].filter(Boolean));
+
 app.use((req, res, next) => {
-if (FRONTEND_ORIGIN && req.headers.origin === FRONTEND_ORIGIN) {
-res.setHeader("Access-Control-Allow-Origin", FRONTEND_ORIGIN);
+const origin = req.headers.origin;
+
+if (origin && allowedOrigins.has(origin)) {
+res.setHeader("Access-Control-Allow-Origin", origin);
 res.setHeader("Vary", "Origin");
 res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
+res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+res.setHeader("Access-Control-Max-Age", "86400");
 }
 
+if (req.method === "OPTIONS") {
+return res.sendStatus(204);
+}
+
+next();
+});
 if (req.method === "OPTIONS") {
 return res.sendStatus(204);
 }
