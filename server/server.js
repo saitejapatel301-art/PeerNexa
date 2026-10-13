@@ -37,7 +37,9 @@ res.json({ ok: true, service: "PeerNexa payment server" });
 app.post("/api/create-order", async (req, res) => {
 try {
 if (!razorpay) {
-return res.status(503).json({ message: "Payment keys are not configured." });
+return res.status(503).json({
+message: "Payment server keys are not configured."
+});
 }
 
 ```
@@ -50,13 +52,15 @@ if (
   typeof email !== "string" ||
   !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 ) {
-  return res.status(400).json({ message: "Enter a valid spot, name, and email." });
+  return res.status(400).json({
+    message: "Please provide a valid spot, name, and email."
+  });
 }
 
 const order = await razorpay.orders.create({
   amount: 9900,
   currency: "INR",
-  receipt: `pn_spot_${spotId}_${Date.now()}`,
+  receipt: "pn_spot_" + String(spotId) + "_" + Date.now(),
   notes: {
     product: "PeerNexa spot claim",
     spot_id: String(spotId),
@@ -65,7 +69,7 @@ const order = await razorpay.orders.create({
   }
 });
 
-res.json({
+return res.json({
   keyId: KEY_ID,
   orderId: order.id,
   amount: order.amount,
@@ -75,57 +79,8 @@ res.json({
 
 } catch (error) {
 console.error("Create order failed:", error.message);
-res.status(500).json({ message: "Could not create payment order." });
-}
+return res.status(500).json({
+message: "Could not create a payment order."
 });
-
-app.post("/api/verify-payment", async (req, res) => {
-try {
-if (!KEY_SECRET) {
-return res.status(503).json({ verified: false, message: "Payment keys are not configured." });
 }
-
-```
-const {
-  razorpay_order_id,
-  razorpay_payment_id,
-  razorpay_signature,
-  spotId
-} = req.body || {};
-
-if (
-  !razorpay_order_id ||
-  !razorpay_payment_id ||
-  !razorpay_signature ||
-  !allowedSpots.has(String(spotId))
-) {
-  return res.status(400).json({ verified: false, message: "Invalid payment details." });
-}
-
-const expected = crypto
-  .createHmac("sha256", KEY_SECRET)
-  .update(`${razorpay_order_id}|${razorpay_payment_id}`)
-  .digest("hex");
-
-const a = Buffer.from(expected, "hex");
-const b = Buffer.from(String(razorpay_signature), "hex");
-
-if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) {
-  return res.status(400).json({ verified: false, message: "Payment signature did not match." });
-}
-
-res.json({
-  verified: true,
-  message: "Signature verified; spot ownership storage is not configured."
-});
-```
-
-} catch (error) {
-console.error("Verification failed:", error.message);
-res.status(500).json({ verified: false, message: "Could not verify payment." });
-}
-});
-
-app.listen(PORT, () => {
-console.log(`PeerNexa server listening on port ${PORT}`);
 });
