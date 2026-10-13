@@ -12,8 +12,7 @@ const KEY_ID = process.env.RAZORPAY_KEY_ID;
 const KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
 const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN;
 
-const razorpay =
-KEY_ID && KEY_SECRET
+const razorpay = KEY_ID && KEY_SECRET
 ? new Razorpay({ key_id: KEY_ID, key_secret: KEY_SECRET })
 : null;
 
@@ -22,12 +21,12 @@ const allowedSpots = new Set([
 "06", "07", "08", "09"
 ]);
 
-// CORS configuration
 const allowedOrigins = new Set([
 "https://saitejapatel301-art.github.io",
 FRONTEND_ORIGIN
 ].filter(Boolean));
 
+// Allow requests from the PeerNexa website
 app.use((req, res, next) => {
 const origin = req.headers.origin;
 
@@ -36,7 +35,6 @@ res.setHeader("Access-Control-Allow-Origin", origin);
 res.setHeader("Vary", "Origin");
 res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-res.setHeader("Access-Control-Max-Age", "86400");
 }
 
 if (req.method === "OPTIONS") {
@@ -54,7 +52,7 @@ service: "PeerNexa payment server"
 });
 });
 
-// Create a ₹99 spot payment order
+// Create a ₹99 spot order
 app.post("/api/create-order", async (req, res) => {
 try {
 if (!razorpay) {
@@ -110,7 +108,7 @@ return res.status(500).json({
 }
 });
 
-// Verify payment signature
+// Verify Razorpay payment signature
 app.post("/api/verify-payment", (req, res) => {
 try {
 if (!KEY_SECRET) {
@@ -144,12 +142,12 @@ const expectedSignature = crypto
   .update(razorpay_order_id + "|" + razorpay_payment_id)
   .digest("hex");
 
-const signatureBuffer = Buffer.from(razorpay_signature, "hex");
+const actualBuffer = Buffer.from(razorpay_signature, "hex");
 const expectedBuffer = Buffer.from(expectedSignature, "hex");
 
 if (
-  signatureBuffer.length !== expectedBuffer.length ||
-  !crypto.timingSafeEqual(signatureBuffer, expectedBuffer)
+  actualBuffer.length !== expectedBuffer.length ||
+  !crypto.timingSafeEqual(actualBuffer, expectedBuffer)
 ) {
   return res.status(400).json({
     verified: false,
@@ -176,7 +174,7 @@ return res.status(500).json({
 }
 });
 
-// Start server
+// Start the server
 app.listen(PORT, () => {
 console.log("PeerNexa server listening on port " + PORT);
 });
