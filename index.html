@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101426">
+<meta name="description" content="PeerNexa helps students connect, showcase skills, and claim a place on the map.">
+<title>PeerNexa — Your next move starts here</title>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<style>
+:root{--bg:#0b1020;--panel:#141b31;--panel2:#19223d;--text:#f5f7ff;--muted:#aab4d1;--purple:#9b7bff;--cyan:#4de1d2;--line:#2b3554}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#25204e 0,transparent 36%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{width:min(1120px,92%);margin:auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;gap:12px}.brand{font-size:1.35rem;font-weight:850;letter-spacing:-.04em}.brand span{color:var(--cyan)}.navlinks{display:flex;gap:18px;color:var(--muted);font-size:.92rem}.btn{border:0;border-radius:12px;background:linear-gradient(110deg,var(--purple),#6c8bff);color:white;font-weight:750;padding:12px 17px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn.secondary{background:#222b47;border:1px solid var(--line)}.hero{padding:58px 0 38px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:30px}.eyebrow{color:var(--cyan);font-weight:750;text-transform:uppercase;letter-spacing:.14em;font-size:.76rem}.hero h1{font-size:clamp(2.4rem,6vw,4.7rem);line-height:1.03;letter-spacing:-.06em;margin:14px 0}.gradient{background:linear-gradient(100deg,#bca8ff,var(--cyan));background-clip:text;color:transparent}.hero p,.muted{color:var(--muted);line-height:1.7}.hero p{font-size:1.06rem;max-width:560px}.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}.preview{background:linear-gradient(145deg,#1a2141,#11172b);border:1px solid #34345e;border-radius:24px;padding:18px;box-shadow:0 25px 80px #0005}.preview-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.pill{border:1px solid #394365;color:var(--cyan);border-radius:99px;padding:6px 10px;font-size:.76rem}.mini-map{height:255px;position:relative;overflow:hidden;border-radius:18px;background-color:#111b31;background-image:linear-gradient(35deg,transparent 46%,#34405a 47%,#34405a 49%,transparent 50%),linear-gradient(145deg,transparent 43%,#293754 44%,#293754 46%,transparent 47%),linear-gradient(90deg,transparent 49%,#293754 50%,transparent 51%),linear-gradient(0deg,transparent 49%,#293754 50%,transparent 51%);background-size:120px 100px,140px 120px,90px 90px,90px 90px;border:1px solid #2b3554}.pin{position:absolute;border:1px solid #a99aff;background:#6e58d9;color:white;padding:8px 10px;border-radius:11px;box-shadow:0 0 22px #8e74ff77;font-size:.75rem;font-weight:800}.pin:nth-child(1){top:18%;left:16%}.pin:nth-child(2){top:55%;left:40%}.pin:nth-child(3){top:24%;left:67%}.pin:nth-child(4){top:68%;left:74%;background:#176d75;border-color:#4de1d2}.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.stat{background:#11172a;border-radius:12px;padding:12px}.stat strong{display:block;font-size:1.1rem}.stat small{color:var(--muted)}section{padding:42px 0}.section-head{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:20px}.section-head h2{font-size:clamp(1.7rem,4vw,2.4rem);margin:0 0 8px;letter-spacing:-.04em}.map-tools{display:flex;gap:8px;align-items:center}.map-tools button{height:38px;min-width:40px}.spots-wrap{border:1px solid var(--line);background:#10172b;border-radius:22px;padding:14px;overflow:hidden}.map-canvas{height:330px;overflow:hidden;border-radius:15px;background:#111b30;position:relative;border:1px solid #2b3554;touch-action:pan-x pan-y}.map-grid{position:absolute;inset:-10%;transform-origin:center;transition:transform .18s;background-image:linear-gradient(35deg,transparent 47%,#2d3c58 48%,#2d3c58 50%,transparent 51%),linear-gradient(145deg,transparent 43%,#253550 44%,#253550 46%,transparent 47%),linear-gradient(90deg,transparent 49%,#263550 50%,transparent 51%),linear-gradient(0deg,transparent 49%,#263550 50%,transparent 51%);background-size:150px 125px,180px 140px,95px 95px,95px 95px}.spot{position:absolute;width:60px;height:60px;border-radius:17px;background:#201e48;border:1px solid #8c77ff;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 18px #8c77ff55;cursor:pointer;font-weight:800}.spot small{font-size:.6rem;color:#c9bfff}.spot.claimed{background:#153c42;border-color:var(--cyan);box-shadow:0 0 16px #4de1d255}.spot:focus{outline:3px solid white}.spot:nth-child(1){left:9%;top:16%}.spot:nth-child(2){left:28%;top:54%}.spot:nth-child(3){left:48%;top:22%}.spot:nth-child(4){left:68%;top:54%}.spot:nth-child(5){left:82%;top:16%}.spot:nth-child(6){left:14%;top:68%}.spot:nth-child(7){left:57%;top:70%}.spot:nth-child(8){left:37%;top:75%}.spot:nth-child(9){left:76%;top:76%}.map-caption{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;padding:12px 4px 2px}.spot-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}.spot-card,.feature{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:17px}.spot-card h3{margin:0 0 6px}.spot-card p{margin:0 0 14px;color:var(--muted);font-size:.9rem;line-height:1.5}.price{font-weight:850;font-size:1.2rem}.spot-card .btn{width:100%;margin-top:12px}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.feature .emoji{font-size:1.5rem}.feature h3{margin:10px 0 5px}.feature p{color:var(--muted);line-height:1.6;font-size:.93rem}.notice{margin-top:18px;border:1px solid #65542c;background:#2a2417;color:#f8d99b;padding:13px 15px;border-radius:12px;font-size:.88rem;line-height:1.5}.footer{border-top:1px solid var(--line);padding:24px 0 36px;color:var(--muted);font-size:.85rem}.modal{position:fixed;inset:0;display:none;place-items:center;background:#050814d9;padding:18px;z-index:10}.modal.open{display:grid}.modal-box{width:min(440px,100%);background:#151c32;border:1px solid #3a4262;border-radius:20px;padding:23px}.modal-head{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#27304a;color:white;border-radius:9px;padding:8px 11px;cursor:pointer}.modal-box input{width:100%;margin:8px 0 14px;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0d1324;color:white}.modal-box label{font-size:.9rem;color:var(--muted)}.modal-box .btn{width:100%}.status{font-size:.88rem;line-height:1.5;color:var(--muted);margin-top:12px;overflow-wrap:anywhere}
+@media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:34px}.hero h1{font-size:clamp(2.5rem,13vw,4rem)}.preview{margin-top:4px}.mini-map{height:220px}.section-head{align-items:start;flex-direction:column}.spot-list,.features{grid-template-columns:1fr}.map-canvas{height:300px}.statrow{grid-template-columns:repeat(3,1fr)}.stat{padding:10px}.stat strong{font-size:1rem}}
+</style>
+</head>
+<body>
+<header class="wrap nav">
+  <a class="brand" href="#"><span>Peer</span>Nexa.</a>
+  <nav class="navlinks"><a href="#spots">Spot Claim</a><a href="#about">About</a><a href="#how">How it works</a></nav>
+  <a class="btn" href="#spots">Explore spots ↗</a>
+</header>
+<main>
+  <div class="wrap hero">
+    <div>
+      <div class="eyebrow">Your next move starts here</div>
+      <h1>Meet peers.<br><span class="gradient">Make your mark.</span></h1>
+      <p>PeerNexa is a space for students to discover people, share skills, and find new opportunities. Claim a spot and put your name on the map.</p>
+      <div class="hero-actions"><a class="btn" href="#spots">Claim a spot — ₹99</a><a class="btn secondary" href="#about">Discover PeerNexa</a></div>
+      <p class="muted">Built for student connections, creativity, and collaboration.</p>
+    </div>
+    <div class="preview">
+      <div class="preview-top"><strong>PeerNexa Map</strong><span class="pill">SPOT CLAIM</span></div>
+      <div class="mini-map"><span class="pin">SPOT 01</span><span class="pin">SPOT 02</span><span class="pin">SPOT 03</span><span class="pin">YOUR SPOT</span></div>
+      <div class="statrow"><div class="stat"><strong>₹99</strong><small>per spot</small></div><div class="stat"><strong>9</strong><small>demo spots</small></div><div class="stat"><strong>1 map</strong><small>many ideas</small></div></div>
+    </div>
+  </div>
+  <section class="wrap" id="spots">
+    <div class="section-head"><div><div class="eyebrow">Find your place</div><h2>Claim your spot on the map</h2><p class="muted">Tap any spot to select it. Use + and − to zoom in or out.</p></div><div class="map-tools"><button class="btn secondary" id="zoomOut" aria-label="Zoom out">−</button><button class="btn secondary" id="zoomIn" aria-label="Zoom in">+</button><button class="btn secondary" id="zoomReset">Reset</button></div></div>
+    <div class="spots-wrap">
+      <div class="map-canvas" id="mapCanvas" aria-label="Interactive demo map">
+        <div class="map-grid" id="mapGrid">
+          <button class="spot" data-spot="01" style="left:8%;top:16%" aria-label="Select spot 01">01<small>₹99</small></button>
+          <button class="spot" data-spot="02" style="left:28%;top:52%" aria-label="Select spot 02">02<small>₹99</small></button>
+          <button class="spot" data-spot="03" style="left:48%;top:20%" aria-label="Select spot 03">03<small>₹99</small></button>
+          <button class="spot" data-spot="04" style="left:68%;top:51%" aria-label="Select spot 04">04<small>₹99</small></button>
+          <button class="spot" data-spot="05" style="left:82%;top:15%" aria-label="Select spot 05">05<small>₹99</small></button>
+          <button class="spot" data-spot="06" style="left:14%;top:68%" aria-label="Select spot 06">06<small>₹99</small></button>
+          <button class="spot" data-spot="07" style="left:57%;top:69%" aria-label="Select spot 07">07<small>₹99</small></button>
+          <button class="spot" data-spot="08" style="left:37%;top:75%" aria-label="Select spot 08">08<small>₹99</small></button>
+          <button class="spot" data-spot="09" style="left:76%;top:76%" aria-label="Select spot 09">09<small>₹99</small></button>
+        </div>
+      </div>
+      <div class="map-caption"><span id="selectedLabel">Selected: Spot 01</span><span>Demo map layout · zoom is interactive</span></div>
+    </div>
+    <div class="spot-list" id="spotList"></div>
+    <div class="notice"><strong>Payment setup notice:</strong> this starter uses a secure server endpoint for Razorpay order creation and signature verification. Payments will not work until the server is deployed and configured with your Razorpay test keys. A successful payment is not yet stored as permanent spot ownership; a database must be connected before public launch.</div>
+  </section>
+  <section class="wrap" id="about">
+    <div class="section-head"><div><div class="eyebrow">Why PeerNexa</div><h2>A small spot. A bigger network.</h2></div></div>
+    <div class="features">
+      <article class="feature"><div class="emoji">🤝</div><h3>Connect</h3><p>Discover students and build meaningful peer connections.</p></article>
+      <article class="feature"><div class="emoji">✨</div><h3>Showcase</h3><p>Make space for your ideas, skills, and student projects.</p></article>
+      <article class="feature"><div class="emoji">🗺️</div><h3>Claim a spot</h3><p>Choose a demo map spot priced at ₹99 and continue to checkout.</p></article>
+    </div>
+  </section>
+  <section class="wrap" id="how"><div class="section-head"><div><div class="eyebrow">Getting started</div><h2>How it works</h2><p class="muted">Explore the map, select a spot, then use Razorpay checkout once your server is configured.</p></div></div></section>
+</main>
+<footer class="footer"><div class="wrap">© <span id="year"></span> PeerNexa. Made for the next generation of student builders.</div></footer>
+<div class="modal" id="paymentModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box"><div class="modal-head"><h2 id="modalTitle">Claim a spot</h2><button class="close" id="closeModal" aria-label="Close">✕</button></div>
+  <p class="muted">Selected spot: <strong id="modalSpot">01</strong> · Price: <strong>₹99</strong></p>
+  <label for="buyerName">Your name</label><input id="buyerName" autocomplete="name" placeholder="Enter your name" maxlength="80">
+  <label for="buyerEmail">Email address</label><input id="buyerEmail" type="email" autocomplete="email" placeholder="you@example.com" maxlength="120">
+  <button class="btn" id="payButton">Continue to secure checkout — ₹99</button>
+  <div class="status" id="paymentStatus" role="status">Test mode only until you configure the server and Razorpay test keys.</div>
+  </div>
+</div>
+<script>
+const PRICE_RUPEES = 99;
+const spots = Array.from({length:9},(_,i)=>({id:String(i+1).padStart(2,"0"),title:"PeerNexa Spot "+String(i+1).padStart(2,"0")}));
+let selectedSpot="01", zoom=1;
+const list=document.getElementById("spotList"), grid=document.getElementById("mapGrid");
+function renderCards(){list.innerHTML="";spots.forEach(s=>{const article=document.createElement("article");article.className="spot-card";article.innerHTML=`<h3>${s.title}</h3><p>Choose this place on the PeerNexa demo map.</p><div class="price">₹${PRICE_RUPEES}</div><button class="btn" data-claim="${s.id}">Claim spot ${s.id}</button>`;list.appendChild(article)});}
+function selectSpot(id){selectedSpot=id;document.getElementById("selectedLabel").textContent="Selected: Spot "+id;document.getElementById("modalSpot").textContent=id;document.querySelectorAll(".spot").forEach(el=>el.style.outline=el.dataset.spot===id?"3px solid #4de1d2":"");}
+document.addEventListener("click",e=>{const spot=e.target.closest("[data-spot]");const claim=e.target.closest("[data-claim]");if(spot){selectSpot(spot.dataset.spot)}if(claim){selectSpot(claim.dataset.claim);openModal()}});
+function openModal(){document.getElementById("paymentModal").classList.add("open");document.getElementById("paymentStatus").textContent="Test mode only until you configure the server and Razorpay test keys."}
+function closeModal(){document.getElementById("paymentModal").classList.remove("open")}
+document.getElementById("closeModal").addEventListener("click",closeModal);
+document.getElementById("paymentModal").addEventListener("click",e=>{if(e.target.id==="paymentModal")closeModal()});
+document.getElementById("zoomIn").addEventListener("click",()=>{zoom=Math.min(zoom+0.15,1.75);grid.style.transform=`scale(${zoom})`});
+document.getElementById("zoomOut").addEventListener("click",()=>{zoom=Math.max(zoom-0.15,0.7);grid.style.transform=`scale(${zoom})`});
+document.getElementById("zoomReset").addEventListener("click",()=>{zoom=1;grid.style.transform="scale(1)"});
+document.getElementById("payButton").addEventListener("click",async()=>{
+ const name=document.getElementById("buyerName").value.trim(),email=document.getElementById("buyerEmail").value.trim(),status=document.getElementById("paymentStatus"),button=document.getElementById("payButton");
+ if(!name||!email||!document.getElementById("buyerEmail").checkValidity()){status.textContent="Please enter your name and a valid email address.";return}
+ button.disabled=true;status.textContent="Connecting to the PeerNexa payment server…";
+ try{
+  const orderResponse=await fetch("/api/create-order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({spotId:selectedSpot,name,email})});
+  if(!orderResponse.ok)throw new Error("Payment server is not configured yet. Follow README.md to deploy it and add Razorpay test keys.");
+  const order=await orderResponse.json();
+  if(!window.Razorpay)throw new Error("Razorpay Checkout did not load. Check your internet connection and reload.");
+  const checkout=new Razorpay({key:order.keyId,amount:order.amount,currency:order.currency||"INR",name:"PeerNexa",description:"Claim Spot "+selectedSpot,order_id:order.orderId,prefill:{name,email},theme:{color:"#8e74ff"},
+   handler:async function(response){
+    status.textContent="Verifying payment securely…";
+    try{const verify=await fetch("/api/verify-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...response,spotId:selectedSpot,name,email})});const result=await verify.json();if(!verify.ok||!result.verified)throw new Error(result.message||"Verification failed.");status.textContent="Payment verified for Spot "+selectedSpot+". Permanent spot ownership still requires database setup."; }
+    catch(err){status.textContent="Payment returned, but server verification needs attention. Save your payment ID and contact support. "+err.message;}
+   },
+   modal:{ondismiss:()=>{status.textContent="Checkout closed. No spot was confirmed."}}
+  });
+  checkout.on("payment.failed",r=>{status.textContent="Payment failed: "+(r.error?.description||"Please try again.")});
+  checkout.open();
+ }catch(err){status.textContent=err.message; }finally{button.disabled=false}
+});
+document.getElementById("year").textContent=new Date().getFullYear();renderCards();selectSpot("01");
+</script>
+</body>
+</html>
