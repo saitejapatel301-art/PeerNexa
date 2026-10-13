@@ -96,8 +96,9 @@ document.getElementById("payButton").addEventListener("click",async()=>{
  button.disabled=true;status.textContent="Connecting to the PeerNexa payment server…";
  try{
   const orderResponse=await fetch("https://peernexa.onrender.com/api/create-order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({spotId:selectedSpot,name,email})});
-  if(!orderResponse.ok)throw new Error("Payment server is not configured yet. Follow README.md to deploy it and add Razorpay test keys.");
-  const order=await orderResponse.json();
+  const orderData = await orderResponse.json().catch(() => ({}));
+if (!orderResponse.ok) throw new Error(orderData.message || ("Payment server returned HTTP " + orderResponse.status));
+const order = orderData;
   if(!window.Razorpay)throw new Error("Razorpay Checkout did not load. Check your internet connection and reload.");
   const checkout=new Razorpay({key:order.keyId,amount:order.amount,currency:order.currency||"INR",name:"PeerNexa",description:"Claim Spot "+selectedSpot,order_id:order.orderId,prefill:{name,email},theme:{color:"#8e74ff"},
    handler:async function(response){
