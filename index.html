@@ -102,7 +102,7 @@ document.getElementById("payButton").addEventListener("click",async()=>{
   const checkout=new Razorpay({key:order.keyId,amount:order.amount,currency:order.currency||"INR",name:"PeerNexa",description:"Claim Spot "+selectedSpot,order_id:order.orderId,prefill:{name,email},theme:{color:"#8e74ff"},
    handler:async function(response){
     status.textContent="Verifying payment securely…";
-    try{const verify=await fetch("/api/verify-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...response,spotId:selectedSpot,name,email})});const result=await verify.json();if(!verify.ok||!result.verified)throw new Error(result.message||"Verification failed.");status.textContent="Payment verified for Spot "+selectedSpot+". Permanent spot ownership still requires database setup."; }
+    try{const verify=await fetch("https://peernexa.onrender.com/api/verify-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...response,spotId:selectedSpot,name,email})});const result=await verify.json();if(!verify.ok||!result.verified)throw new Error(result.message||"Verification failed.");status.textContent="Payment verified for Spot "+selectedSpot+". Permanent spot ownership still requires database setup."; }
     catch(err){status.textContent="Payment returned, but server verification needs attention. Save your payment ID and contact support. "+err.message;}
    },
    modal:{ondismiss:()=>{status.textContent="Checkout closed. No spot was confirmed."}}
